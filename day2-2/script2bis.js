@@ -1,22 +1,22 @@
 async function Day2bis(file){
     let text= await file.text();
-    textTable=text.split('\r\n');
-    reportsTable=textTable.map((e)=>e.split(' '));
-    reportsTableFiltered=reportsTable.filter((e)=>isSafe(e,true));
+    let textTable=text.split('\r\n');
+    let reportsTable=textTable.map((e)=>e.split(' '));
+    let reportsTableFiltered=reportsTable.filter((e)=>isSafe(e,true));
     document.getElementById('Result').textContent=reportsTableFiltered.length;
 
 }
 
 function isSafe (report, firstError){
 
-    firstExamination=true;
-    increase=false;
-    decrease=false;
-    error=false;
+    let firstExamination=true;
+    let increase=false;
+    let decrease=false;
+    let error=false;
     
     for (let i=0;i<report.length-1;i++){
-        currentValue=parseInt(report[i]);
-        nextValue=parseInt(report[i+1]);
+        let currentValue=parseInt(report[i]);
+        let nextValue=parseInt(report[i+1]);
 
         if ((Math.abs(currentValue-nextValue)>3) || (Math.abs(currentValue-nextValue)==0)){
             error=true;
@@ -45,28 +45,25 @@ function isSafe (report, firstError){
         if (error){
             if (firstError){
                 
-                
-                report1= JSON.parse(JSON.stringify(report));
+                let report1= JSON.parse(JSON.stringify(report));
                 report1.splice(i,1);
-                if (isSafe1(report1,false)){
+                if (isSafe(report1,false)){
                     return true;
                 }
                 else {
-                  
-                    
-                    report2= JSON.parse(JSON.stringify(report));
+                      
+                    let report2= JSON.parse(JSON.stringify(report));
                     report2.splice(i+1,1);
-                    if (isSafe1(report2,false)){
+                    if (isSafe(report2,false)){
                         return true;
                     }
                     else {
-                        report3= JSON.parse(JSON.stringify(report));
+                        let report3= JSON.parse(JSON.stringify(report));
                         report3.splice(i-1,1);
-                        if (isSafe1(report3,false)){
+                        if (isSafe(report3,false)){
                             return true;
                         }
                         else {
-
                         return false;
                         }
                     }
@@ -75,9 +72,7 @@ function isSafe (report, firstError){
             else {
                 return false;
             }
-        
         }
-        
     }
     return true;
 }
